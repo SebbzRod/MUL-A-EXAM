@@ -1,13 +1,26 @@
 /**
-* RandomColor: Funcion creada para obtener un color random.
+* RandomColor: Función creada para obtener colores aleatorios.
+* ENTRADA: nP (tipo: número) - Número de colores aleatorios a generar.
+* SALIDA: colores (tipo: array de THREE.Color) - Array de colores aleatorios generados.
 */
-function RandomColor() {
-  var r = Math.random();
-  var g = Math.random();
-  var b = Math.random();
-  color = new THREE.Color(r, g, b);
-  return color;
+function RandomColor(nP) {
+
+  const colores = [];
+
+  for (let i = 0; i < nP; i++) {
+
+    const r = Math.random();
+    const g = Math.random();
+    const b = Math.random();
+    const color = new THREE.Color(r, g, b);
+    colores.push(color);
+  
+  }
+
+  return colores;
+
 }
+
 /**
 * crearPoligonmo: Genera un polígono en 3D utilizando la biblioteca THREE.js  de n lados y radio r determinado por el usuario.
 * ENTRADAS: *nP (tipo: número) - Número de poligonos generados.
@@ -20,10 +33,10 @@ function RandomColor() {
 function crearPoligonos(nP, nlados, x0, y0, z0, radio, altura) {
 
   var Grupoligono = new THREE.Group();
+  var color = RandomColor(nP);
   var fila = 0; // Variable para controlar el número de filas generadas
   var offsetX = 0; // Variable para controlar la separacion en "x" de cada figura
   var offsetY = altura; // Variable para controlar la separacion en el eje "y" de cada fila
-
 
   for (let i = 0; i < nP; i++) {
 
@@ -51,10 +64,10 @@ function crearPoligonos(nP, nlados, x0, y0, z0, radio, altura) {
     geometry.setFromPoints(vertices);
     geometry.setIndex(indices);
 
-    const material = new THREE.MeshLambertMaterial({ color: RandomColor() , side: THREE.DoubleSide });
+    const material = new THREE.MeshPhongMaterial({ color: color[i],  side: THREE.DoubleSide });
     
     var poligono = new THREE.Mesh(geometry, material);
-    poligono.position.set(x0 + offsetX, y0 - fila * (2* offsetY), z0); // Actualiza la posición de los polígonos
+    poligono.position.set(x0 + offsetX, y0 - fila * (offsetY + 1), z0); // Actualiza la posición de los polígonos
 
     Grupoligono.add(poligono);
 
@@ -71,7 +84,6 @@ function crearPoligonos(nP, nlados, x0, y0, z0, radio, altura) {
   return Grupoligono;
 }
 /**
-/**
 * crearPoligonmo: Genera un poliedro en 3D utilizando la biblioteca THREE.js  de n lados, radio r y altura a determinado por el usuario.
 * ENTRADAS: *nP (tipo: número) - Número de poliedros generados.
             *nlados (tipo: número) - Número de lados del poliedro.
@@ -83,7 +95,7 @@ function crearPoligonos(nP, nlados, x0, y0, z0, radio, altura) {
 function crearPoliedro(nP, nlados, x0, y0, z0, radio, altura) {
 
   var Grupoliedro = new THREE.Group();
-  var color = RandomColor();
+  var color = RandomColor(nP);
   var fila = 0; // Variable para controlar el número de filas generadas
   var offsetX = 0; // Variable para controlar la separacion en "x" de cada figura
   var offsetY = altura; // Variable para controlar la separacion en el eje "y" de cada fila
@@ -125,12 +137,11 @@ function crearPoliedro(nP, nlados, x0, y0, z0, radio, altura) {
     geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
     geometry.setIndex(indices);
 
-    const material = new THREE.MeshLambertMaterial({ color: RandomColor() });
-
+    const material = new THREE.MeshLambertMaterial({ color: color[i]});
     
     var poliedro = new THREE.Mesh(geometry, material);
 
-    poliedro.position.set(x0 + offsetX, y0 - fila * (2 * offsetY), z0);// Actualiza la posicion de los poliedros
+    poliedro.position.set(x0 + offsetX, y0 - fila * (offsetY + 1), z0);// Actualiza la posicion de los poliedros
 
     Grupoliedro.add(poliedro);
 
