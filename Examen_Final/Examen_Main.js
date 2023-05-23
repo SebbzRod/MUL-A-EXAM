@@ -16,7 +16,7 @@ camera.position.y = 0;
 camera.position.x = 0;
 
 // Crear luces
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
 
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(0, 0, 15);
