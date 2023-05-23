@@ -106,7 +106,6 @@ function crearPoliedro(nP, nlados, x0, y0, z0, radio, altura) {
     var vertices = [];
     var indices = [];
 
-    // Generar los vértices del cuerpo del poliedro
     for (var j = 0; j < nlados; j++) {
 
       var angle = (2 * Math.PI * j) / nlados;
@@ -116,7 +115,6 @@ function crearPoliedro(nP, nlados, x0, y0, z0, radio, altura) {
 
     }
 
-    // Generar los vértices de la parte superior del poliedro
     for (var j = 0; j < nlados; j++) {
 
       var angle = (2 * Math.PI * j) / nlados;
@@ -126,7 +124,6 @@ function crearPoliedro(nP, nlados, x0, y0, z0, radio, altura) {
 
     }
 
-    // Generar los índices que conectan los vértices de la base con los vértices de la parte superior
     for (var j = 0; j < nlados + nlados; j++) {
 
       indices.push(j, j + nlados, (j + 1) % nlados + nlados);
